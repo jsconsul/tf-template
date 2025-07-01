@@ -1,0 +1,17 @@
+steps:
+- id: 'Set script permissions'
+  name: 'alpine'
+  entrypoint: 'sh'
+  args:
+  - -c
+  - chmod +x ./script.sh
+
+- id: 'Run Terraform provisioning'
+  name: 'hashicorp/terraform:1.8.1'
+  entrypoint: 'sh'
+  args:
+  - ./script.sh
+  - '${BRANCH_NAME}'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
